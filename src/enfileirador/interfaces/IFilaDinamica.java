@@ -1,9 +1,9 @@
 package enfileirador.interfaces;
 
-public interface IFilaDinamica {
+public interface IFilaDinamica<T> {
     public boolean isEmpty();
-    public void enqueue(Object object) throws Exception;
-    public Object dequeue() throws Exception;
-    public Object peek() throws Exception;
+    public void enqueue(T t) throws Exception;
+    public T dequeue() throws Exception;
+    public T peek() throws Exception;
     public String show();
 }
