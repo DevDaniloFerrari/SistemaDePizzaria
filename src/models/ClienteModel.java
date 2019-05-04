@@ -2,11 +2,13 @@ package models;
 
 public class ClienteModel {
 
-    public ClienteModel(String Nome, EnderecoModel endereco) {
-        this.Nome = Nome;
+    public ClienteModel(String telefone, String nome, EnderecoModel endereco) {
+        this.Telefone = telefone;
+        this.Nome = nome;
         this.Endereco = endereco;
     }
 
+    private String Telefone;
     private String Nome;
     private EnderecoModel Endereco;
 
@@ -26,5 +28,11 @@ public class ClienteModel {
         this.Endereco = endereco;
     }
     
-    
+   public String getTelefone() {
+        return Telefone;
+    }
+
+    public void setTelefone(String Telefone) {
+        this.Telefone = Telefone;
+    }
 }

@@ -1,18 +1,28 @@
 package models.contexts;
 
-import enfileirador.interfaces.IFilaDinamica;
-import models.PedidoModel;
+import models.ClienteModel;
+import models.ProdutoModel;
 
-public class PedidosContext {
+public class PedidosContext extends Context {
 
-    public PedidosContext(IFilaDinamica<PedidoModel> pedidos) {
-        this.pedidos = pedidos;
-    }
+    public static void adicionar(ClienteModel clienteModel, ProdutoModel pedidoModel) {
+        abrirConexao();
 
-    private static IFilaDinamica<PedidoModel> pedidos;
+        String query = "INSERT INTO Pedido ("
+                + "                       Cliente,"
+                + "                       Produto"
+                + "                   )"
+                + "                   VALUES ("
+                + "                       '{Cliente}',"
+                + "                       '{Produto}'"
+                + "                   );";
 
-    public static IFilaDinamica<PedidoModel> getPedidos() {
-        return pedidos;
+        query = query.replace("{Cliente}", clienteModel.getTelefone())
+                .replace("{Produto}", Integer.toString(pedidoModel.getId()));
+
+        executarQuery(query);
+
+        fecharConexao();
     }
 
 }
