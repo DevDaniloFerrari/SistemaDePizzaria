@@ -14,7 +14,7 @@ public abstract class Context {
 
         try {
 
-            String url = "D:\\Projetos\\Java\\SistemaDePizzaria\\dist\\db\\pizzaria.db";
+            String url = "jdbc:sqlite:D:\\Projetos\\Java\\SistemaDePizzaria\\db\\pizzaria.db";
 
             _connection = DriverManager.getConnection(url);
         } catch (SQLException ex) {

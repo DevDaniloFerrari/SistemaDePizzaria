@@ -2,27 +2,27 @@ package models;
 
 public class ProdutoModel {
 
-    public ProdutoModel(String nome, float preco) {
-        this.Nome = nome;
+    public ProdutoModel(String descricao, float preco) {
+        this.Descricao = descricao;
         this.Preco = preco;
     }
 
-    public ProdutoModel(int Id, String Nome, float Preco) {
-        this.Id = Id;
-        this.Nome = Nome;
+    public ProdutoModel(int IdProduto, String Descricao, float Preco) {
+        this.IdProduto = IdProduto;
+        this.Descricao = Descricao;
         this.Preco = Preco;
     }
 
-    private int Id;
-    private String Nome;
+    private int IdProduto;
+    private String Descricao;
     private float Preco;
 
-    public String getNome() {
-        return Nome;
+    public String getDescricao() {
+        return Descricao;
     }
 
-    public void setNome(String Nome) {
-        this.Nome = Nome;
+    public void setDescricao(String Descricao) {
+        this.Descricao = Descricao;
     }
 
     public float getPreco() {
@@ -33,8 +33,8 @@ public class ProdutoModel {
         this.Preco = Preco;
     }
 
-    public int getId() {
-        return Id;
+    public int getIdProduto() {
+        return IdProduto;
     }
 
     

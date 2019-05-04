@@ -7,7 +7,7 @@ import models.ProdutoModel;
 
 public class ProdutoContext extends Context {
 
-    public static void adicionar(ProdutoModel model) {
+    public void adicionar(ProdutoModel model) {
         abrirConexao();
 
         String query = "INSERT INTO Produto ("
@@ -19,7 +19,7 @@ public class ProdutoContext extends Context {
                 + "                        '{Preco}'"
                 + "                    );";
 
-        query = query.replace("{Nome}", model.getNome())
+        query = query.replace("{Nome}", model.getDescricao())
                 .replace("{Preco}", Float.toString(model.getPreco()));
 
         executarQuery(query);
@@ -27,43 +27,43 @@ public class ProdutoContext extends Context {
         fecharConexao();
     }
 
-    public static void deletar(ProdutoModel model) {
+    public void deletar(ProdutoModel model) {
         abrirConexao();
 
         String query = "DELETE FROM Produto"
-                + "      WHERE Id = '{Id}';";
+                + "      WHERE IdProduto = '{IdProduto}';";
 
-        query = query.replace("{Id}", Integer.toString(model.getId()));
+        query = query.replace("{IdProduto}", Integer.toString(model.getIdProduto()));
 
         executarQuery(query);
 
         fecharConexao();
     }
 
-    public static void atualizar(ProdutoModel model) {
+    public void atualizar(ProdutoModel model) {
         abrirConexao();
 
         String query = "UPDATE Produto"
-                + "   SET Nome = '{Nome}',"
+                + "   SET Descricao = '{Descricao}',"
                 + "       Preco = '{Preco}'"
-                + " WHERE Id = '{Id}'";
+                + " WHERE IdProduto = '{IdProduto}'";
 
-        query = query.replace("{Nome}", model.getNome())
+        query = query.replace("{Descricao}", model.getDescricao())
                 .replace("{Preco}", Float.toString(model.getPreco()))
-                .replace("{Id}", Integer.toString(model.getId()));
+                .replace("{IdProduto}", Integer.toString(model.getIdProduto()));
 
         executarQuery(query);
 
         fecharConexao();
     }
 
-    public static ArrayList<ProdutoModel> obter(String nome) throws SQLException {
+    public ArrayList<ProdutoModel> obter(String nome) throws SQLException {
         abrirConexao();
 
         ArrayList<ProdutoModel> models = null;
 
-        String query = "SELECT Id,"
-                + "       Nome,"
+        String query = "SELECT IdProduto,"
+                + "       Descricao,"
                 + "       Preco"
                 + "  FROM Produto"
                 + "  WHERE"
@@ -75,8 +75,8 @@ public class ProdutoContext extends Context {
 
         while (resultSet.next()) {
             models.add(new ProdutoModel(
-                    resultSet.getInt("Id"),
-                    resultSet.getString("Nome"),
+                    resultSet.getInt("IdProduto"),
+                    resultSet.getString("Descricao"),
                     resultSet.getFloat("Preco")));
         }
 
@@ -85,26 +85,26 @@ public class ProdutoContext extends Context {
         return models;
     }
 
-    public static ProdutoModel obter(int id) throws SQLException {
+    public ProdutoModel obter(int IdProduto) throws SQLException {
         abrirConexao();
 
         ProdutoModel model = null;
 
-        String query = "SELECT Id,"
-                + "       Nome,"
+        String query = "SELECT IdProduto,"
+                + "       Descricao,"
                 + "       Preco"
                 + "  FROM Produto"
                 + "  WHERE"
-                + "      Id = '{Id}';";
+                + "      Id = '{IdProduto}';";
 
-        query = query.replace("{Id}", Integer.toString(id));
+        query = query.replace("{IdProduto}", Integer.toString(IdProduto));
 
         ResultSet resultSet = executarQuery(query);
 
         while (resultSet.next()) {
             model = new ProdutoModel(
-                    resultSet.getInt("Id"),
-                    resultSet.getString("Nome"),
+                    resultSet.getInt("IdProduto"),
+                    resultSet.getString("Descricao"),
                     resultSet.getFloat("Preco"));
         }
 
@@ -113,13 +113,13 @@ public class ProdutoContext extends Context {
         return model;
     }
 
-    public static ArrayList<ProdutoModel> obter() throws SQLException {
+    public ArrayList<ProdutoModel> obter() throws SQLException {
         abrirConexao();
 
         ArrayList<ProdutoModel> models = null;
 
-        String query = "SELECT Id,"
-                + "       Nome,"
+        String query = "SELECT IdProduto,"
+                + "       Descricao,"
                 + "       Preco"
                 + "  FROM Produto;";
 
@@ -127,8 +127,8 @@ public class ProdutoContext extends Context {
 
         while (resultSet.next()) {
             models.add(new ProdutoModel(
-                    resultSet.getInt("Id"),
-                    resultSet.getString("Nome"),
+                    resultSet.getInt("IdProduto"),
+                    resultSet.getString("Descricao"),
                     resultSet.getFloat("Preco")));
         }
         fecharConexao();

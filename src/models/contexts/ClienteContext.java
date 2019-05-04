@@ -8,7 +8,7 @@ import models.EnderecoModel;
 
 public class ClienteContext extends Context {
 
-    public static void adicionar(ClienteModel model) {
+    public void adicionar(ClienteModel model) {
         abrirConexao();
 
         String query = "INSERT INTO Cliente ("
@@ -37,7 +37,7 @@ public class ClienteContext extends Context {
         fecharConexao();
     }
 
-    public static void deletar(ClienteModel model) {
+    public void deletar(ClienteModel model) {
         abrirConexao();
 
         String query = "DELETE FROM Cliente"
@@ -50,7 +50,7 @@ public class ClienteContext extends Context {
         fecharConexao();
     }
 
-    public static void atualizar(String telefoneReferencia, ClienteModel model) {
+    public void atualizar(String telefoneReferencia, ClienteModel model) {
         abrirConexao();
 
         String query = "UPDATE Cliente"
@@ -73,7 +73,7 @@ public class ClienteContext extends Context {
         fecharConexao();
     }
 
-    public static ClienteModel obter(String telefone) throws SQLException {
+    public ClienteModel obter(String telefone) throws SQLException {
         abrirConexao();
 
         ClienteModel model = null;
@@ -94,7 +94,7 @@ public class ClienteContext extends Context {
 
         while (resultSet.next()) {
             model = new ClienteModel(resultSet.getString("Telefone"),
-                    resultSet.getString("Logradouro"),
+                    resultSet.getString("Nome"),
                     new EnderecoModel(resultSet.getString("Logradouro"),
                             resultSet.getString("Numero"),
                             resultSet.getString("Complemento")));
@@ -105,7 +105,7 @@ public class ClienteContext extends Context {
         return model;
     }
 
-    public static ArrayList<ClienteModel> obter() throws SQLException {
+    public ArrayList<ClienteModel> obter() throws SQLException {
         abrirConexao();
 
         ArrayList<ClienteModel> models = null;
@@ -121,7 +121,7 @@ public class ClienteContext extends Context {
 
         while (resultSet.next()) {
             models.add(new ClienteModel(resultSet.getString("Telefone"),
-                    resultSet.getString("Logradouro"),
+                    resultSet.getString("Nome"),
                     new EnderecoModel(resultSet.getString("Logradouro"),
                             resultSet.getString("Numero"),
                             resultSet.getString("Complemento"))));
