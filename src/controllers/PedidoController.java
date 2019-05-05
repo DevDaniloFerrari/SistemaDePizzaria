@@ -1,22 +1,45 @@
 package controllers;
 
+import enfileirador.FilaDePedidos;
 import java.sql.SQLException;
 import models.PedidoModel;
+import models.ProdutoModel;
 import models.contexts.PedidoContext;
+import java.util.ArrayList;
+import models.ClienteModel;
+import models.contexts.ClienteContext;
 
 public class PedidoController {
-    
-    private final PedidoContext _context;
 
-    public PedidoController(PedidoContext _context) {
-        this._context = _context;
+    private final PedidoContext _pedidoContext;
+    private final ClienteContext _clienteContext;
+
+    public PedidoController(PedidoContext pedidoContext, ClienteContext clienteContext) {
+        this._pedidoContext = pedidoContext;
+        this._clienteContext = clienteContext;
+    }
+
+    public void solicitar(String telefone, ArrayList<ProdutoModel> produtos) throws SQLException, Exception {
+        ClienteModel clienteModel = _clienteContext.obter(telefone);
+        ArrayList<ProdutoModel> produtosModel = new ArrayList();
+        
+        for (ProdutoModel produto : produtos) {
+            produtosModel.add(produto);
+            _pedidoContext.adicionar(telefone, produto.getIdProduto());
+        }
+        
+        FilaDePedidos.incluirPedido(new PedidoModel(clienteModel, produtosModel));
+    }
+
+    public void completarPedido() throws Exception{
+        FilaDePedidos.removerPedido();
     }
     
-    public void solicitar(String telefone, int idProduto){
-        _context.adicionar(telefone, idProduto);
+    public void listarPedidos(){
+        FilaDePedidos.pedidosEmEspera();
     }
     
-    public PedidoModel obter(String telefone) throws SQLException{
-        return _context.obter(telefone);
+    public PedidoModel obter(String telefone) throws SQLException {
+        return _pedidoContext.obter(telefone);
     }
 }

@@ -33,4 +33,7 @@ public class ProdutoController {
         return _context.obter(nome);
     }
     
+    public ArrayList<ProdutoModel> obter() throws SQLException{
+        return _context.obter();
+    }
 }

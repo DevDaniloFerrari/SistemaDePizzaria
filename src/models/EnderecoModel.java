@@ -10,6 +10,11 @@ public class EnderecoModel {
     
     private String Logradouro, Numero, Complemento;
 
+    @Override
+    public String toString() {
+        return "EnderecoModel{" + "Logradouro=" + Logradouro + ", Numero=" + Numero + ", Complemento=" + Complemento + '}';
+    }
+
     public String getLogradouro() {
         return Logradouro;
     }

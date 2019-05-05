@@ -2,6 +2,7 @@ package enfileirador.entities;
 
 import enfileirador.exceptions.FilaDinamicaException;
 import enfileirador.interfaces.IFilaDinamica;
+import java.util.ArrayList;
 
 public class FilaDinamica implements IFilaDinamica {
 
@@ -55,26 +56,18 @@ public class FilaDinamica implements IFilaDinamica {
     }
 
     @Override
-    public String show() {
+    public ArrayList<Object> show() {
 
         No auxiliar = Inicio;
-        String retorno = "";
-        boolean primeiraIteracao = true;
-        int contador = 0;
-
+        ArrayList<Object> objetos = new ArrayList();
+        
         while (auxiliar != null) {
-            if (primeiraIteracao) {
-                retorno += String.format("Posicao[%d] = ", contador) + auxiliar.getInformacao().toString();
-                auxiliar = auxiliar.getProximoNo();
-                primeiraIteracao = false;
-                contador++;
-            } else {
-                retorno += ";" + String.format("Posicao[%d] = ", contador) + auxiliar.getInformacao().toString();
-                auxiliar = auxiliar.getProximoNo();
-                contador++;
-            }
+            
+            objetos.add(auxiliar.getInformacao());
+            
+            auxiliar = auxiliar.getProximoNo();
         }
-        return retorno;
+        return objetos;
     }
 
 }

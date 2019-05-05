@@ -60,7 +60,7 @@ public class ProdutoContext extends Context {
     public ArrayList<ProdutoModel> obter(String nome) throws SQLException {
         abrirConexao();
 
-        ArrayList<ProdutoModel> models = null;
+        ArrayList<ProdutoModel> models = new ArrayList();
 
         String query = "SELECT IdProduto,"
                 + "       Descricao,"
@@ -116,7 +116,7 @@ public class ProdutoContext extends Context {
     public ArrayList<ProdutoModel> obter() throws SQLException {
         abrirConexao();
 
-        ArrayList<ProdutoModel> models = null;
+        ArrayList<ProdutoModel> models = new ArrayList();
 
         String query = "SELECT IdProduto,"
                 + "       Descricao,"
@@ -135,4 +135,5 @@ public class ProdutoContext extends Context {
 
         return models;
     }
+    
 }

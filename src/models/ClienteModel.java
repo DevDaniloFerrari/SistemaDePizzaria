@@ -12,6 +12,12 @@ public class ClienteModel {
     private String Nome;
     private EnderecoModel Endereco;
 
+    @Override
+    public String toString() {
+        return "ClienteModel{" + "Telefone=" + Telefone + ", Nome=" + Nome + ", Endereco=" + Endereco.toString() + '}';
+    }
+
+    
     public String getNome() {
         return Nome;
     }

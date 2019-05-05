@@ -78,7 +78,7 @@ public class FilaDinamicaTest {
         filaDinamica.enqueue(2);
         filaDinamica.enqueue("danilo");
         filaDinamica.enqueue('A');
-        Assert.assertEquals("Posicao[0] = 1;Posicao[1] = 2;Posicao[2] = danilo;Posicao[3] = A", filaDinamica.show());
+        Assert.assertEquals("[1, 2, danilo, A]", filaDinamica.show().toString());
     }
 
 }

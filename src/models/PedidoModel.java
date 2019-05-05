@@ -12,4 +12,11 @@ public class PedidoModel {
     public ClienteModel cliente;
     public List<ProdutoModel> produtos;
 
+    @Override
+    public String toString() {
+        return "PedidoModel{" + "cliente=" + cliente.toString() + ", produtos=" + produtos.toString() + '}';
+    }
+
+    
+    
 }

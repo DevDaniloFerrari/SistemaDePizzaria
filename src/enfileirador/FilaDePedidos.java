@@ -2,6 +2,7 @@ package enfileirador;
 
 import enfileirador.entities.FilaDinamica;
 import enfileirador.interfaces.IFilaDinamica;
+import java.util.List;
 import models.PedidoModel;
 
 public class FilaDePedidos {
@@ -16,7 +17,7 @@ public class FilaDePedidos {
         return fila.dequeue();
     }
     
-    public static String pedidosEmEspera(){
+    public static List<PedidoModel> pedidosEmEspera(){
         return fila.show();
     }
 }

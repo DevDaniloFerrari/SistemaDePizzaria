@@ -17,6 +17,11 @@ public class ProdutoModel {
     private String Descricao;
     private float Preco;
 
+    @Override
+    public String toString() {
+        return "ProdutoModel{" + "IdProduto=" + IdProduto + ", Descricao=" + Descricao + ", Preco=" + Preco + '}';
+    }
+
     public String getDescricao() {
         return Descricao;
     }
