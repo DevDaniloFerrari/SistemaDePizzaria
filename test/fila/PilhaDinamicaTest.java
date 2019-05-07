@@ -1,8 +1,8 @@
 package fila;
 
-import classes.No;
-import classes.PilhaDinamica;
-import exceptions.PilhaDinamicaException;
+import empilhador.classes.No;
+import empilhador.classes.PilhaDinamica;
+import empilhador.exceptions.PilhaDinamicaException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
