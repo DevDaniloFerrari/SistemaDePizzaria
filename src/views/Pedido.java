@@ -29,7 +29,7 @@ public class Pedido extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
 
-        
+        radioBtnCodigo.setSelected(true);
 
     }
 
@@ -42,11 +42,18 @@ public class Pedido extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonsDeBusca = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JTextField();
         btnVerificar = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblProdutos = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
+        radioBtnCodigo = new javax.swing.JRadioButton();
+        radioBtnDescricao = new javax.swing.JRadioButton();
+        txtBusca = new javax.swing.JTextField();
+        spnCodigo = new javax.swing.JSpinner();
+        btnAtualizar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pedido");
@@ -70,6 +77,28 @@ public class Pedido extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tblProdutos);
 
+        jButton1.setText("Buscar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        buttonsDeBusca.add(radioBtnCodigo);
+        radioBtnCodigo.setText("Código");
+
+        buttonsDeBusca.add(radioBtnDescricao);
+        radioBtnDescricao.setText("Descrição");
+
+        spnCodigo.setModel(new javax.swing.SpinnerNumberModel(1, 0, null, 1));
+
+        btnAtualizar.setText("Atualizar");
+        btnAtualizar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAtualizarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -78,13 +107,26 @@ public class Pedido extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnVerificar)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jLabel1)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(btnVerificar))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(jButton1)
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(radioBtnDescricao)
+                                .addComponent(radioBtnCodigo))
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(spnCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnAtualizar))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -95,9 +137,24 @@ public class Pedido extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVerificar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(32, 32, 32)
+                        .addComponent(jButton1))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(radioBtnCodigo)
+                                .addComponent(spnCodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(btnAtualizar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(radioBtnDescricao)
+                            .addComponent(txtBusca, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addGap(23, 23, 23))
         );
 
         pack();
@@ -111,37 +168,111 @@ public class Pedido extends javax.swing.JFrame {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-            _clienteFrame.setVisible(true);
-            
-            if(clienteModel!=null)
-                _clienteFrame.preencherCliente(clienteModel);
-            
+        _clienteFrame.setVisible(true);
+
+        if (clienteModel != null) {
+            _clienteFrame.preencherCliente(clienteModel);
+        }
+
     }//GEN-LAST:event_btnVerificarActionPerformed
 
-    public void carregarPedidosNaTabela() throws SQLException{
-        ArrayList<ProdutoModel> produtos = _produtoContext.obter();
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        if (radioBtnCodigo.isSelected()) {
+            try {
+                ProdutoModel model = _produtoContext.obter((int) spnCodigo.getValue());
+
+                if (model != null) {
+
+                    this.carregarProdutoNaTabela(model);
+
+                }
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            try {
+                ArrayList<ProdutoModel> produtos = _produtoContext.obter(txtBusca.getText());
+                
+                if(produtos.size()!=0){
+                    this.carregarProdutosNaTabela(produtos);
+                }
+                
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
+        try {
+            this.carregarProdutosNaTabela(_produtoContext.obter());
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_btnAtualizarActionPerformed
+
+    public void carregarProdutosNaTabela(ArrayList<ProdutoModel> produtos) throws SQLException {
+
+        this.limparTabela();
 
         int contador = 0;
-        
+
         DefaultTableModel modeloDaTabela = (DefaultTableModel) tblProdutos.getModel();
-        
+
         for (ProdutoModel produto : produtos) {
-            
+
             modeloDaTabela.addRow(new String[modeloDaTabela.getColumnCount()]);
-            
+
             tblProdutos.setValueAt(produto.getIdProduto(), contador, 0);
             tblProdutos.setValueAt(produto.getDescricao(), contador, 1);
             tblProdutos.setValueAt(produto.getPreco(), contador, 2);
 
             contador++;
         }
+
+        this.refreshTable();
     }
-    
+
+    public void carregarProdutoNaTabela(ProdutoModel produto) throws SQLException {
+
+        this.limparTabela();
+
+        DefaultTableModel modeloDaTabela = (DefaultTableModel) tblProdutos.getModel();
+
+        modeloDaTabela.addRow(new String[modeloDaTabela.getColumnCount()]);
+
+        tblProdutos.setValueAt(produto.getIdProduto(), 0, 0);
+        tblProdutos.setValueAt(produto.getDescricao(), 0, 1);
+        tblProdutos.setValueAt(produto.getPreco(), 0, 2);
+
+        this.refreshTable();
+    }
+
+    private void limparTabela() {
+        DefaultTableModel model = (DefaultTableModel) tblProdutos.getModel();
+        model.setRowCount(0);
+    }
+
+    public void refreshTable() {
+        tblProdutos.setModel(tblProdutos.getModel());
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnVerificar;
+    private javax.swing.ButtonGroup buttonsDeBusca;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JRadioButton radioBtnCodigo;
+    private javax.swing.JRadioButton radioBtnDescricao;
+    private javax.swing.JSpinner spnCodigo;
     private javax.swing.JTable tblProdutos;
+    private javax.swing.JTextField txtBusca;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

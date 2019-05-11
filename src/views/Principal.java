@@ -3,16 +3,18 @@ package views;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
+import models.contexts.ProdutoContext;
 
 public class Principal extends javax.swing.JFrame {
 
     private final Pedido _pedido;
-
+    private final ProdutoContext _produtoContext;
+    
     public Principal() throws SQLException {
 
         _pedido = new Pedido();
-
+        _produtoContext = new ProdutoContext();
+        
         initComponents();
         this.setExtendedState(6);
     }
@@ -74,7 +76,7 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
         try {
-            _pedido.carregarPedidosNaTabela();
+            _pedido.carregarProdutosNaTabela(_produtoContext.obter());
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }

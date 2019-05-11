@@ -67,17 +67,20 @@ public class ProdutoContext extends Context {
                 + "       Preco"
                 + "  FROM Produto"
                 + "  WHERE"
-                + "      Nome LIKE '%{Nome}%';";
+                + "      Descricao LIKE '%{Descricao}%';";
 
-        query = query.replace("{Nome}", nome);
+        query = query.replace("{Descricao}", nome);
 
         ResultSet resultSet = executarQuery(query);
 
-        while (resultSet.next()) {
-            models.add(new ProdutoModel(
-                    resultSet.getInt("IdProduto"),
-                    resultSet.getString("Descricao"),
-                    resultSet.getFloat("Preco")));
+        if (resultSet != null) {
+
+            while (resultSet.next()) {
+                models.add(new ProdutoModel(
+                        resultSet.getInt("IdProduto"),
+                        resultSet.getString("Descricao"),
+                        resultSet.getFloat("Preco")));
+            }
         }
 
         fecharConexao();
@@ -95,19 +98,20 @@ public class ProdutoContext extends Context {
                 + "       Preco"
                 + "  FROM Produto"
                 + "  WHERE"
-                + "      Id = '{IdProduto}';";
+                + "      IdProduto = '{IdProduto}';";
 
         query = query.replace("{IdProduto}", Integer.toString(IdProduto));
 
         ResultSet resultSet = executarQuery(query);
 
-        while (resultSet.next()) {
-            model = new ProdutoModel(
-                    resultSet.getInt("IdProduto"),
-                    resultSet.getString("Descricao"),
-                    resultSet.getFloat("Preco"));
+        if (resultSet != null) {
+            while (resultSet.next()) {
+                model = new ProdutoModel(
+                        resultSet.getInt("IdProduto"),
+                        resultSet.getString("Descricao"),
+                        resultSet.getFloat("Preco"));
+            }
         }
-
         fecharConexao();
 
         return model;
@@ -135,5 +139,5 @@ public class ProdutoContext extends Context {
 
         return models;
     }
-    
+
 }
