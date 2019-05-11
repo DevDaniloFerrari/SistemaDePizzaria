@@ -8,12 +8,14 @@ import models.contexts.ProdutoContext;
 
 public class Principal extends javax.swing.JFrame {
 
-    private final Pedido _pedido;
+    private final Pedido _pedidoFrame;
+    private final Cliente _clienteFrame;
     private final ProdutoController _produtoController;
     
     public Principal() throws SQLException {
 
-        _pedido = new Pedido();
+        _pedidoFrame = new Pedido();
+        _clienteFrame = new Cliente();
         _produtoController = new ProdutoController(new ProdutoContext());
         
         initComponents();
@@ -31,18 +33,27 @@ public class Principal extends javax.swing.JFrame {
 
         jDesktopPane2 = new javax.swing.JDesktopPane();
         btnPedido = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Pizzaria");
 
-        btnPedido.setText("Pedido");
+        btnPedido.setText("Novo Pedido");
         btnPedido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnPedidoActionPerformed(evt);
             }
         });
 
+        jButton1.setText("Adicionar Cliente");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         jDesktopPane2.setLayer(btnPedido, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(jButton1, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
         jDesktopPane2.setLayout(jDesktopPane2Layout);
@@ -50,15 +61,19 @@ public class Principal extends javax.swing.JFrame {
             jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(btnPedido)
-                .addContainerGap(418, Short.MAX_VALUE))
+                .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(369, Short.MAX_VALUE))
         );
         jDesktopPane2Layout.setVerticalGroup(
             jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDesktopPane2Layout.createSequentialGroup()
                 .addGap(29, 29, 29)
                 .addComponent(btnPedido)
-                .addContainerGap(290, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(247, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -77,12 +92,16 @@ public class Principal extends javax.swing.JFrame {
 
     private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
         try {
-            _pedido.carregarProdutosNaTabela(_produtoController.obter());
+            _pedidoFrame.carregarProdutosNaTabela(_produtoController.obter());
         } catch (SQLException ex) {
             Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        _pedido.setVisible(true);
+        _pedidoFrame.setVisible(true);
     }//GEN-LAST:event_btnPedidoActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        _clienteFrame.setVisible(true);
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -125,6 +144,7 @@ public class Principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnPedido;
+    private javax.swing.JButton jButton1;
     private javax.swing.JDesktopPane jDesktopPane2;
     // End of variables declaration//GEN-END:variables
 }
