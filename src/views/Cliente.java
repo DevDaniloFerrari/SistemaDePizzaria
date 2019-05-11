@@ -7,11 +7,11 @@ import models.contexts.ClienteContext;
 public class Cliente extends javax.swing.JFrame {
 
     private final ClienteContext _clienteContext;
-    
+
     public Cliente() {
-        
+
         _clienteContext = new ClienteContext();
-        
+
         initComponents();
         this.setLocationRelativeTo(null);
     }
@@ -144,15 +144,22 @@ public class Cliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        ClienteModel clienteModel = new ClienteModel(txtTelefone.getText(), txtNome.getText()
-                                                    ,new EnderecoModel(txtLogradouro.getText()
-                                                                       , txtNumero.getText()
-                                                                       , txtComplemento.getText()));
-        
-        _clienteContext.adicionar(clienteModel);
-        
-    }//GEN-LAST:event_btnCadastrarActionPerformed
+        ClienteModel clienteModel = new ClienteModel(txtTelefone.getText(), txtNome.getText(),
+                 new EnderecoModel(txtLogradouro.getText(),
+                         txtNumero.getText(),
+                         txtComplemento.getText()));
 
+        _clienteContext.adicionar(clienteModel);
+
+    }//GEN-LAST:event_btnCadastrarActionPerformed
+    
+    public void preencherCliente(ClienteModel model){
+        txtTelefone.setText(model.getTelefone());
+        txtNome.setText(model.getNome());
+        txtLogradouro.setText(model.getEndereco().getLogradouro());
+        txtNumero.setText(model.getEndereco().getNumero());
+        txtComplemento.setText(model.getEndereco().getComplemento());
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCadastrar;

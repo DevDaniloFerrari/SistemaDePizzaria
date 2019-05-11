@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JFrame;
 import javax.swing.table.DefaultTableModel;
 import models.ClienteModel;
 import models.ProdutoModel;
@@ -17,7 +16,7 @@ public class Pedido extends javax.swing.JFrame {
     private final PedidoContext _pedidoContext;
     private final ClienteContext _clienteContext;
     private final ProdutoContext _produtoContext;
-    private final JFrame _clienteFrame;
+    private final Cliente _clienteFrame;
 
     public Pedido() throws SQLException {
 
@@ -112,9 +111,11 @@ public class Pedido extends javax.swing.JFrame {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        if (clienteModel == null) {
             _clienteFrame.setVisible(true);
-        }
+            
+            if(clienteModel!=null)
+                _clienteFrame.preencherCliente(clienteModel);
+            
     }//GEN-LAST:event_btnVerificarActionPerformed
 
     public void carregarPedidosNaTabela() throws SQLException{
