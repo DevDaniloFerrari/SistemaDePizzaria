@@ -1,28 +1,37 @@
 package views;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFrame;
+import javax.swing.table.DefaultTableModel;
 import models.ClienteModel;
+import models.ProdutoModel;
 import models.contexts.ClienteContext;
 import models.contexts.PedidoContext;
+import models.contexts.ProdutoContext;
 
 public class Pedido extends javax.swing.JFrame {
 
     private final PedidoContext _pedidoContext;
     private final ClienteContext _clienteContext;
+    private final ProdutoContext _produtoContext;
     private final JFrame _clienteFrame;
-    
-    public Pedido() {
-        
+
+    public Pedido() throws SQLException {
+
         _pedidoContext = new PedidoContext();
         _clienteContext = new ClienteContext();
-        
+        _produtoContext = new ProdutoContext();
+
         _clienteFrame = new Cliente();
-        
+
         initComponents();
         this.setLocationRelativeTo(null);
+
+        
+
     }
 
     /**
@@ -37,6 +46,8 @@ public class Pedido extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         txtTelefone = new javax.swing.JTextField();
         btnVerificar = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblProdutos = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pedido");
@@ -50,18 +61,32 @@ public class Pedido extends javax.swing.JFrame {
             }
         });
 
+        tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Código", "Descrição", "Preço"
+            }
+        ));
+        jScrollPane1.setViewportView(tblProdutos);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnVerificar)
-                .addContainerGap(115, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 664, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnVerificar)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -71,7 +96,9 @@ public class Pedido extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(txtTelefone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnVerificar))
-                .addContainerGap(264, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 111, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         pack();
@@ -84,14 +111,36 @@ public class Pedido extends javax.swing.JFrame {
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
-        if(clienteModel==null)
+
+        if (clienteModel == null) {
             _clienteFrame.setVisible(true);
+        }
     }//GEN-LAST:event_btnVerificarActionPerformed
 
+    public void carregarPedidosNaTabela() throws SQLException{
+        ArrayList<ProdutoModel> produtos = _produtoContext.obter();
+
+        int contador = 0;
+        
+        DefaultTableModel modeloDaTabela = (DefaultTableModel) tblProdutos.getModel();
+        
+        for (ProdutoModel produto : produtos) {
+            
+            modeloDaTabela.addRow(new String[modeloDaTabela.getColumnCount()]);
+            
+            tblProdutos.setValueAt(produto.getIdProduto(), contador, 0);
+            tblProdutos.setValueAt(produto.getDescricao(), contador, 1);
+            tblProdutos.setValueAt(produto.getPreco(), contador, 2);
+
+            contador++;
+        }
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnVerificar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTable tblProdutos;
     private javax.swing.JTextField txtTelefone;
     // End of variables declaration//GEN-END:variables
 }

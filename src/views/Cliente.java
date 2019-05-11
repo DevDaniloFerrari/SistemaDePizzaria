@@ -13,6 +13,7 @@ public class Cliente extends javax.swing.JFrame {
         _clienteContext = new ClienteContext();
         
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**

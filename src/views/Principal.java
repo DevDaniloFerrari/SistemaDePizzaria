@@ -1,15 +1,18 @@
 package views;
 
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JFrame;
 
 public class Principal extends javax.swing.JFrame {
 
-    private final JFrame _pedido;
-    
-    public Principal() {
-        
+    private final Pedido _pedido;
+
+    public Principal() throws SQLException {
+
         _pedido = new Pedido();
-        
+
         initComponents();
         this.setExtendedState(6);
     }
@@ -70,6 +73,11 @@ public class Principal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPedidoActionPerformed
+        try {
+            _pedido.carregarPedidosNaTabela();
+        } catch (SQLException ex) {
+            Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
         _pedido.setVisible(true);
     }//GEN-LAST:event_btnPedidoActionPerformed
 
@@ -103,7 +111,11 @@ public class Principal extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Principal().setVisible(true);
+                try {
+                    new Principal().setVisible(true);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
