@@ -50,23 +50,22 @@ public class ClienteContext extends Context {
         fecharConexao();
     }
 
-    public void atualizar(String telefoneReferencia, ClienteModel model) {
+    public void atualizar(ClienteModel model) {
         abrirConexao();
 
         String query = "UPDATE Cliente"
-                + "   SET Telefone = '{Telefone}',"
-                + "       Nome = '{Nome}',"
+                + "   SET Nome = '{Nome}',"
                 + "       Logradouro = '{Logradouro}',"
                 + "       Numero = '{Numero}',"
                 + "       Complemento = '{Complemento}'"
-                + " WHERE Telefone = '{TelefoneReferencia}';";
+                + " WHERE Telefone = '{Telefone}';";
 
         query = query.replace("{Telefone}", model.getTelefone())
                 .replace("{Nome}", model.getNome())
                 .replace("{Logradouro}", model.getEndereco().getLogradouro())
                 .replace("{Numero}", model.getEndereco().getNumero())
                 .replace("{Complemento}", model.getEndereco().getComplemento())
-                .replace("{TelefoneReferencia}", telefoneReferencia);
+                .replace("{Telefone}", model.getTelefone());
 
         executarQuery(query);
 

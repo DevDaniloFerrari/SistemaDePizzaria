@@ -1,16 +1,17 @@
 package views;
 
+import controllers.ClienteController;
 import models.ClienteModel;
 import models.EnderecoModel;
 import models.contexts.ClienteContext;
 
 public class Cliente extends javax.swing.JFrame {
 
-    private final ClienteContext _clienteContext;
+    private final ClienteController _clienteController;
 
     public Cliente() {
 
-        _clienteContext = new ClienteContext();
+        _clienteController = new ClienteController(new ClienteContext());
 
         initComponents();
         this.setLocationRelativeTo(null);
@@ -157,11 +158,11 @@ public class Cliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
-        _clienteContext.adicionar(this.ObterCliente());
+        _clienteController.adicionar(this.ObterCliente());
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        _clienteContext.atualizar(txtTelefone.getText(), this.ObterCliente());
+        _clienteController.atualizar(this.ObterCliente());
     }//GEN-LAST:event_btnAtualizarActionPerformed
     
     public ClienteModel ObterCliente(){

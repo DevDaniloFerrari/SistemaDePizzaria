@@ -1,5 +1,8 @@
 package views;
 
+import controllers.ClienteController;
+import controllers.PedidoController;
+import controllers.ProdutoController;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -13,16 +16,16 @@ import models.contexts.ProdutoContext;
 
 public class Pedido extends javax.swing.JFrame {
 
-    private final PedidoContext _pedidoContext;
-    private final ClienteContext _clienteContext;
-    private final ProdutoContext _produtoContext;
+    private final PedidoController _pedidoController;
+    private final ClienteController _clienteController;
+    private final ProdutoController _produtoController;
     private final Cliente _clienteFrame;
 
     public Pedido() throws SQLException {
 
-        _pedidoContext = new PedidoContext();
-        _clienteContext = new ClienteContext();
-        _produtoContext = new ProdutoContext();
+        _pedidoController = new PedidoController(new ClienteContext(), new PedidoContext());
+        _clienteController = new ClienteController(new ClienteContext());
+        _produtoController = new ProdutoController(new ProdutoContext());
 
         _clienteFrame = new Cliente();
 
@@ -163,7 +166,7 @@ public class Pedido extends javax.swing.JFrame {
     private void btnVerificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerificarActionPerformed
         ClienteModel clienteModel = null;
         try {
-            clienteModel = _clienteContext.obter(txtTelefone.getText());
+            clienteModel = _clienteController.obter(txtTelefone.getText());
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -181,7 +184,7 @@ public class Pedido extends javax.swing.JFrame {
         
         if (radioBtnCodigo.isSelected()) {
             try {
-                ProdutoModel model = _produtoContext.obter((int) spnCodigo.getValue());
+                ProdutoModel model = _produtoController.obter((int) spnCodigo.getValue());
 
                 if (model != null) {
 
@@ -193,7 +196,7 @@ public class Pedido extends javax.swing.JFrame {
             }
         } else {
             try {
-                ArrayList<ProdutoModel> produtos = _produtoContext.obter(txtBusca.getText());
+                ArrayList<ProdutoModel> produtos = _produtoController.obter(txtBusca.getText());
                 
                 if(produtos.size()!=0){
                     this.carregarProdutosNaTabela(produtos);
@@ -208,7 +211,7 @@ public class Pedido extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         try {
-            this.carregarProdutosNaTabela(_produtoContext.obter());
+            this.carregarProdutosNaTabela(_produtoController.obter());
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
         }

@@ -21,8 +21,8 @@ public class ClienteController {
         _context.deletar(model);
     }
     
-    public void atualizar(String telefoneReferencia, ClienteModel model){
-        _context.atualizar(telefoneReferencia, model);
+    public void atualizar(ClienteModel model){
+        _context.atualizar(model);
     }
     
     public ClienteModel obter(String telefone) throws SQLException{

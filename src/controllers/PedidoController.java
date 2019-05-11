@@ -14,31 +14,31 @@ public class PedidoController {
     private final PedidoContext _pedidoContext;
     private final ClienteContext _clienteContext;
 
-    public PedidoController(PedidoContext pedidoContext, ClienteContext clienteContext) {
-        this._pedidoContext = pedidoContext;
+    public PedidoController(ClienteContext clienteContext, PedidoContext pedidoContext) {
         this._clienteContext = clienteContext;
+        this._pedidoContext = pedidoContext;
     }
 
     public void solicitar(String telefone, ArrayList<ProdutoModel> produtos) throws SQLException, Exception {
         ClienteModel clienteModel = _clienteContext.obter(telefone);
         ArrayList<ProdutoModel> produtosModel = new ArrayList();
-        
+
         for (ProdutoModel produto : produtos) {
             produtosModel.add(produto);
             _pedidoContext.adicionar(telefone, produto.getIdProduto());
         }
-        
+
         FilaDePedidos.incluirPedido(new PedidoModel(clienteModel, produtosModel));
     }
 
-    public void completarPedido() throws Exception{
+    public void completarPedido() throws Exception {
         FilaDePedidos.removerPedido();
     }
-    
-    public void listarPedidos(){
+
+    public void listarPedidos() {
         FilaDePedidos.pedidosEmEspera();
     }
-    
+
     public PedidoModel obter(String telefone) throws SQLException {
         return _pedidoContext.obter(telefone);
     }
