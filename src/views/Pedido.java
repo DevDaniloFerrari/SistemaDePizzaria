@@ -181,7 +181,7 @@ public class Pedido extends javax.swing.JFrame {
 
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         if (radioBtnCodigo.isSelected()) {
             try {
                 ProdutoModel model = _produtoController.obter((int) spnCodigo.getValue());
@@ -189,7 +189,9 @@ public class Pedido extends javax.swing.JFrame {
                 if (model != null) {
 
                     this.carregarProdutoNaTabela(model);
-
+                } else {
+                    this.limparTabela();
+                    this.refreshTable();
                 }
             } catch (SQLException ex) {
                 Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
@@ -197,11 +199,14 @@ public class Pedido extends javax.swing.JFrame {
         } else {
             try {
                 ArrayList<ProdutoModel> produtos = _produtoController.obter(txtBusca.getText());
-                
-                if(produtos.size()!=0){
+
+                if (produtos.size() != 0) {
                     this.carregarProdutosNaTabela(produtos);
+                } else {
+                    this.limparTabela();
+                    this.refreshTable();
                 }
-                
+
             } catch (SQLException ex) {
                 Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
             }
