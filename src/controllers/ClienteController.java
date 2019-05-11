@@ -25,6 +25,10 @@ public class ClienteController {
         _context.atualizar(model);
     }
     
+    public void atualizarTelefone(String antigo, String novo){
+        _context.atualizarTelefone(antigo, novo);
+    }
+    
     public ClienteModel obter(String telefone) throws SQLException{
        return  _context.obter(telefone);
     }

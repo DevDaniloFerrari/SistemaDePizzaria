@@ -72,6 +72,21 @@ public class ClienteContext extends Context {
         fecharConexao();
     }
 
+    public void atualizarTelefone(String antigo, String novo){
+        abrirConexao();
+        
+        String query = "UPDATE Cliente"
+                + "   SET Telefone = '{TelefoneNovo}'"
+                + " WHERE Telefone = '{TelefoneAntigo}';";
+        
+        query = query.replace("{TelefoneNovo}", novo)
+                     .replace("{TelefoneAntigo}", antigo);
+        
+        executarQuery(query);
+        
+        fecharConexao();
+    }
+    
     public ClienteModel obter(String telefone) throws SQLException {
         abrirConexao();
 
