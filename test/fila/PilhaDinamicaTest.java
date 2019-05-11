@@ -1,8 +1,8 @@
 package fila;
 
-import classes.No;
-import classes.PilhaDinamica;
-import exceptions.PilhaDinamicaException;
+import empilhador.classes.No;
+import empilhador.classes.PilhaDinamica;
+import empilhador.exceptions.PilhaDinamicaException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -51,11 +51,6 @@ public class PilhaDinamicaTest {
     @Test(expected = PilhaDinamicaException.class)
     public void testContadorComPilhaVazia() throws PilhaDinamicaException {
         pilhaDinamica.size();
-    }
-
-    @Test(expected = PilhaDinamicaException.class)
-    public void testColocarValorInvalido() throws PilhaDinamicaException {
-        pilhaDinamica.push(1);
     }
 
     @Test

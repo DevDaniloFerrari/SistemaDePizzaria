@@ -2,19 +2,19 @@ package empilhador.classes;
 
 public class No {
     
-    private char Dado;
+    private Object Dado;
     private No proximoNo;
 
-    public No(char Dado) {
+    public No(Object Dado) {
         this.Dado = Dado;
         this.proximoNo = null;
     }
 
-    public char getDado() {
+    public Object getDado() {
         return Dado;
     }
 
-    public void setDado(char Dado) {
+    public void setDado(Object Dado) {
         this.Dado = Dado;
     }
 

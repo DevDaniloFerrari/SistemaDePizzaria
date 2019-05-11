@@ -16,47 +16,14 @@ public class PilhaDinamica implements IPilhaDinamica {
     @Override
     public void push(Object valor) throws PilhaDinamicaException {
 
-        No novo;
+        No novo = new No(valor);
 
-        if (valor.getClass().getSimpleName().equals("Character")) {
-            novo = new No((char) valor);
+        if (isEmpty()) {
+            Topo = novo;
+        } else {
             novo.setProximoNo(Topo);
             Topo = novo;
         }
-
-        if (valor.getClass().getSimpleName().equals("String")) {
-            int corte;
-            String frase = (String) valor;
-            boolean primeiroCorte = true;
-            do {
-                corte = frase.lastIndexOf(" ");
-
-                if (corte == -1) {
-                    corte = 0;
-                    frase = " " + frase;
-                }
-
-                String palavra;
-
-                if (primeiroCorte) {
-                    palavra = frase.substring(corte + 1, frase.length());
-                } else {
-                    palavra = frase.substring(corte, frase.length());
-                }
-
-                for (int indice = 0; indice < palavra.length(); indice++) {
-                    push((char) palavra.charAt(indice));
-                }
-
-                if (corte != 0) {
-                    frase = frase.substring(0, corte);
-                }
-
-                primeiroCorte = false;
-
-            } while (corte != 0);
-        }
-
     }
 
     @Override
@@ -66,7 +33,7 @@ public class PilhaDinamica implements IPilhaDinamica {
             throw new PilhaDinamicaException("Pilha vazia!");
         }
 
-        char auxiliar = Topo.getDado();
+        Object auxiliar = Topo.getDado();
         Topo = Topo.getProximoNo();
 
         return auxiliar;
@@ -93,10 +60,6 @@ public class PilhaDinamica implements IPilhaDinamica {
             contador++;
         }
 
-        if (contador != 0) {
-            return contador;
-        }
-
         return contador;
 
     }
@@ -106,7 +69,7 @@ public class PilhaDinamica implements IPilhaDinamica {
 
         No auxiliar = Topo;
         ArrayList<Object> objetos = new ArrayList();
-        
+
         while (auxiliar != null) {
             objetos.add(auxiliar.getDado());
             auxiliar = auxiliar.getProximoNo();
