@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import models.ClienteModel;
@@ -34,7 +35,7 @@ public class Pedido extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
 
         radioBtnCodigo.setSelected(true);
-
+        this.Limpar();
     }
 
     /**
@@ -64,6 +65,7 @@ public class Pedido extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         tblProdutosSolicitados = new javax.swing.JTable();
         btnRemoverProduto = new javax.swing.JButton();
+        btnFinalizarPedido = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Pedido");
@@ -188,6 +190,13 @@ public class Pedido extends javax.swing.JFrame {
             }
         });
 
+        btnFinalizarPedido.setText("Finalizar Pedido");
+        btnFinalizarPedido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnFinalizarPedidoActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -198,7 +207,8 @@ public class Pedido extends javax.swing.JFrame {
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 739, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnRemoverProduto)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -206,8 +216,10 @@ public class Pedido extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 68, Short.MAX_VALUE)
-                .addComponent(btnRemoverProduto)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnRemoverProduto)
+                    .addComponent(btnFinalizarPedido, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -239,7 +251,7 @@ public class Pedido extends javax.swing.JFrame {
                     .addComponent(btnVerificar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(18, 18, 18)
+                .addGap(21, 21, 21)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -324,13 +336,71 @@ public class Pedido extends javax.swing.JFrame {
     }//GEN-LAST:event_btnIncluirActionPerformed
 
     private void btnRemoverProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRemoverProdutoActionPerformed
-        this.removerLinhaNaTabela(tblProdutosSolicitados, tblProdutosSolicitados.getSelectedRow());
-        this.refreshTable(tblProdutosSolicitados);
+
+        if (tblProdutosSolicitados.getRowCount() != 0) {
+            this.removerLinhaNaTabela(tblProdutosSolicitados, tblProdutosSolicitados.getSelectedRow());
+            this.refreshTable(tblProdutosSolicitados);
+        }
+
     }//GEN-LAST:event_btnRemoverProdutoActionPerformed
 
-    public void removerLinhaNaTabela(JTable tabela, int linha) {
+    private void btnFinalizarPedidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFinalizarPedidoActionPerformed
+        ClienteModel clienteModel = null;
+        try {
+            clienteModel = _clienteController.obter(txtTelefone.getText());
+        } catch (SQLException ex) {
+            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        if (clienteModel != null) {
+            try {
+
+                ArrayList<ProdutoModel> produtos = this.obterProdutosNaTabela(tblProdutosSolicitados);
+
+                if (produtos.isEmpty()) {
+                    JOptionPane.showMessageDialog(null, "Você precisa incluir algum produto!", "Lista vazia", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    _pedidoController.solicitar(txtTelefone.getText(), produtos);
+                    this.Limpar();
+                    JOptionPane.showMessageDialog(null, "Pedido realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                }
+
+            } catch (Exception ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Cliente inválido!", "ERRO", JOptionPane.ERROR_MESSAGE);
+        }
+
+    }//GEN-LAST:event_btnFinalizarPedidoActionPerformed
+
+    private void Limpar() {
+        txtTelefone.setText(null);
+        this.limparTabela(tblProdutosSolicitados);
+        this.refreshTable(tblProdutosSolicitados);
+    }
+
+    public ArrayList<ProdutoModel> obterProdutosNaTabela(JTable tabela) {
+        ArrayList<ProdutoModel> models = new ArrayList();
+
         DefaultTableModel modeloDaTabela = (DefaultTableModel) tabela.getModel();
-        modeloDaTabela.removeRow(linha);
+
+        for (int i = 0; i < modeloDaTabela.getRowCount(); i++) {
+            models.add(new ProdutoModel(
+                    (int) modeloDaTabela.getValueAt(i, 0),
+                    (String) modeloDaTabela.getValueAt(i, 1),
+                    (float) modeloDaTabela.getValueAt(i, 2)));
+        }
+
+        return models;
+
+    }
+
+    public void removerLinhaNaTabela(JTable tabela, int linha) {
+        if (linha != -1) {
+            DefaultTableModel modeloDaTabela = (DefaultTableModel) tabela.getModel();
+            modeloDaTabela.removeRow(linha);
+        }
     }
 
     public void carregarProdutosNaTabela(JTable tabela, ArrayList<ProdutoModel> produtos) throws SQLException {
@@ -398,6 +468,7 @@ public class Pedido extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
+    private javax.swing.JButton btnFinalizarPedido;
     private javax.swing.JButton btnIncluir;
     private javax.swing.JButton btnRemoverProduto;
     private javax.swing.JButton btnVerificar;
