@@ -17,8 +17,8 @@ public class ProdutoController {
         _context.adicionar(model);
     }
     
-    public void deletar(ProdutoModel model){
-        _context.deletar(model);
+    public void deletar(int id){
+        _context.deletar(id);
     }
     
     public void atualizar(ProdutoModel model){
@@ -36,4 +36,9 @@ public class ProdutoController {
     public ArrayList<ProdutoModel> obter() throws SQLException{
         return _context.obter();
     }
+    
+    public int ultimoIdProduto() throws SQLException{
+        return _context.ultimoIdProduto();
+    }
+    
 }

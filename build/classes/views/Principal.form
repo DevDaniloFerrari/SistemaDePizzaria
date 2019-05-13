@@ -44,6 +44,7 @@
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="btnCliente" max="32767" attributes="0"/>
                       <Component id="btnPedido" max="32767" attributes="0"/>
+                      <Component id="txtProduto" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace pref="390" max="32767" attributes="0"/>
               </Group>
@@ -56,7 +57,9 @@
                   <Component id="btnPedido" min="-2" max="-2" attributes="0"/>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Component id="btnCliente" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace pref="247" max="32767" attributes="0"/>
+                  <EmptySpace type="separate" max="-2" attributes="0"/>
+                  <Component id="txtProduto" min="-2" max="-2" attributes="0"/>
+                  <EmptySpace pref="204" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -76,6 +79,14 @@
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnClienteActionPerformed"/>
+          </Events>
+        </Component>
+        <Component class="javax.swing.JButton" name="txtProduto">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Produto"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtProdutoActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>

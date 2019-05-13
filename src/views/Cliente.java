@@ -200,7 +200,17 @@ public class Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCadastrarActionPerformed
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        _clienteController.atualizar(this.obterCliente());
+
+        try {
+            if (_clienteController.obter(txtTelefone.getText()) != null) {
+                _clienteController.atualizar(this.obterCliente());
+            } else {
+                JOptionPane.showMessageDialog(null, "Cliente inválido!", "ERRO", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
     private void btnAtualizarTelefoneActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarTelefoneActionPerformed
@@ -253,10 +263,10 @@ public class Cliente extends javax.swing.JFrame {
 
     }
 
-    public void preencherTelefone(String telefone){
+    public void preencherTelefone(String telefone) {
         txtTelefone.setText(telefone);
     }
-    
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnAtualizarTelefone;

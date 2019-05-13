@@ -395,17 +395,17 @@ public class Pedido extends javax.swing.JFrame {
         this.limpar(tblProdutosSolicitados);
     }//GEN-LAST:event_btnLimparActionPerformed
 
-    public void limparTelefone() {
+    private void limparTelefone() {
         txtTelefone.setText(null);
     }
 
     private void limpar(JTable tabela) {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         model.setRowCount(0);
-        this.refreshTable(tblProdutosSolicitados);
+        this.refreshTable(tabela);
     }
 
-    public ArrayList<ProdutoModel> obterProdutosNaTabela(JTable tabela) {
+    private ArrayList<ProdutoModel> obterProdutosNaTabela(JTable tabela) {
         ArrayList<ProdutoModel> models = new ArrayList();
 
         DefaultTableModel modeloDaTabela = (DefaultTableModel) tabela.getModel();
@@ -421,7 +421,7 @@ public class Pedido extends javax.swing.JFrame {
 
     }
 
-    public void removerLinhaNaTabela(JTable tabela, int linha) {
+    private void removerLinhaNaTabela(JTable tabela, int linha) {
         if (linha != -1) {
             DefaultTableModel modeloDaTabela = (DefaultTableModel) tabela.getModel();
             modeloDaTabela.removeRow(linha);
@@ -450,6 +450,8 @@ public class Pedido extends javax.swing.JFrame {
 
     public void carregarProdutosNaTabela(ArrayList<ProdutoModel> produtos) throws SQLException {
 
+        this.limpar(tblProdutos);
+        
         int contador = 0;
 
         DefaultTableModel modeloDaTabela = (DefaultTableModel) tblProdutos.getModel();
@@ -468,7 +470,7 @@ public class Pedido extends javax.swing.JFrame {
         this.refreshTable(tblProdutos);
     }
 
-    public void carregarProdutoNaTabela(JTable tabela, ProdutoModel produto) throws SQLException {
+    private void carregarProdutoNaTabela(JTable tabela, ProdutoModel produto) throws SQLException {
 
         DefaultTableModel modeloDaTabela = (DefaultTableModel) tabela.getModel();
 
@@ -481,7 +483,7 @@ public class Pedido extends javax.swing.JFrame {
         this.refreshTable(tabela);
     }
 
-    public void refreshTable(JTable tabela) {
+    private void refreshTable(JTable tabela) {
         tabela.setModel(tabela.getModel());
     }
 

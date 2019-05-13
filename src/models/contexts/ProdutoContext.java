@@ -11,15 +11,15 @@ public class ProdutoContext extends Context {
         abrirConexao();
 
         String query = "INSERT INTO Produto ("
-                + "                        Nome,"
+                + "                        Descricao,"
                 + "                        Preco"
                 + "                    )"
                 + "                    VALUES ("
-                + "                        '{Nome}',"
+                + "                        '{Descricao}',"
                 + "                        '{Preco}'"
                 + "                    );";
 
-        query = query.replace("{Nome}", model.getDescricao())
+        query = query.replace("{Descricao}", model.getDescricao())
                 .replace("{Preco}", Float.toString(model.getPreco()));
 
         executarQuery(query);
@@ -27,13 +27,13 @@ public class ProdutoContext extends Context {
         fecharConexao();
     }
 
-    public void deletar(ProdutoModel model) {
+    public void deletar(int id) {
         abrirConexao();
 
         String query = "DELETE FROM Produto"
                 + "      WHERE IdProduto = '{IdProduto}';";
 
-        query = query.replace("{IdProduto}", Integer.toString(model.getIdProduto()));
+        query = query.replace("{IdProduto}", Integer.toString(id));
 
         executarQuery(query);
 
@@ -138,6 +138,21 @@ public class ProdutoContext extends Context {
         fecharConexao();
 
         return models;
+    }
+
+    public int ultimoIdProduto() throws SQLException {
+        abrirConexao();
+
+        String query = "SELECT IdProduto FROM Produto ORDER BY IdProduto DESC LIMIT 1;";
+
+        ResultSet resultSet = executarQuery(query);
+        
+        int idProduto = resultSet.getInt("IdProduto");
+        
+        fecharConexao();
+
+        return idProduto;
+        
     }
 
 }

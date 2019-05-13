@@ -10,12 +10,16 @@ public class Principal extends javax.swing.JFrame {
 
     private final Pedido _pedidoFrame;
     private final Cliente _clienteFrame;
+    private final Produto _produtoFrame;
+    
     private final ProdutoController _produtoController;
     
     public Principal() throws SQLException {
 
         _pedidoFrame = new Pedido();
         _clienteFrame = new Cliente();
+        _produtoFrame = new Produto();
+        
         _produtoController = new ProdutoController(new ProdutoContext());
         
         initComponents();
@@ -34,6 +38,7 @@ public class Principal extends javax.swing.JFrame {
         jDesktopPane2 = new javax.swing.JDesktopPane();
         btnPedido = new javax.swing.JButton();
         btnCliente = new javax.swing.JButton();
+        txtProduto = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Sistema de Pizzaria");
@@ -52,8 +57,16 @@ public class Principal extends javax.swing.JFrame {
             }
         });
 
+        txtProduto.setText("Produto");
+        txtProduto.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProdutoActionPerformed(evt);
+            }
+        });
+
         jDesktopPane2.setLayer(btnPedido, javax.swing.JLayeredPane.DEFAULT_LAYER);
         jDesktopPane2.setLayer(btnCliente, javax.swing.JLayeredPane.DEFAULT_LAYER);
+        jDesktopPane2.setLayer(txtProduto, javax.swing.JLayeredPane.DEFAULT_LAYER);
 
         javax.swing.GroupLayout jDesktopPane2Layout = new javax.swing.GroupLayout(jDesktopPane2);
         jDesktopPane2.setLayout(jDesktopPane2Layout);
@@ -63,7 +76,8 @@ public class Principal extends javax.swing.JFrame {
                 .addGap(30, 30, 30)
                 .addGroup(jDesktopPane2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(btnCliente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnPedido, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(txtProduto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap(390, Short.MAX_VALUE))
         );
         jDesktopPane2Layout.setVerticalGroup(
@@ -73,7 +87,9 @@ public class Principal extends javax.swing.JFrame {
                 .addComponent(btnPedido)
                 .addGap(18, 18, 18)
                 .addComponent(btnCliente)
-                .addContainerGap(247, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(txtProduto)
+                .addContainerGap(204, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -102,6 +118,10 @@ public class Principal extends javax.swing.JFrame {
     private void btnClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnClienteActionPerformed
         _clienteFrame.setVisible(true);
     }//GEN-LAST:event_btnClienteActionPerformed
+
+    private void txtProdutoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProdutoActionPerformed
+        _produtoFrame.setVisible(true);
+    }//GEN-LAST:event_txtProdutoActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,5 +166,6 @@ public class Principal extends javax.swing.JFrame {
     private javax.swing.JButton btnCliente;
     private javax.swing.JButton btnPedido;
     private javax.swing.JDesktopPane jDesktopPane2;
+    private javax.swing.JButton txtProduto;
     // End of variables declaration//GEN-END:variables
 }
