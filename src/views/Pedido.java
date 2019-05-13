@@ -277,7 +277,7 @@ public class Pedido extends javax.swing.JFrame {
 
         _clienteFrame.setVisible(true);
         _clienteFrame.preencherTelefone(txtTelefone.getText());
-        
+
         if (clienteModel != null) {
             _clienteFrame.preencherCliente(clienteModel);
         }
@@ -292,6 +292,7 @@ public class Pedido extends javax.swing.JFrame {
                 ProdutoModel model = _produtoController.obter((int) spnCodigo.getValue());
 
                 if (model != null) {
+                    this.limpar(tblProdutos);
                     this.carregarProdutoNaTabela(tblProdutos, model);
                 } else {
                     this.limpar(tblProdutos);
@@ -304,7 +305,8 @@ public class Pedido extends javax.swing.JFrame {
             try {
                 ArrayList<ProdutoModel> produtos = _produtoController.obter(txtBusca.getText());
 
-                if (produtos.isEmpty()) {
+                if (!produtos.isEmpty()) {
+                    this.limpar(tblProdutos);
                     this.carregarProdutosNaTabela(tblProdutos, produtos);
                 } else {
                     this.limpar(tblProdutos);
@@ -320,6 +322,7 @@ public class Pedido extends javax.swing.JFrame {
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
         try {
+            this.limpar(tblProdutos);
             this.carregarProdutosNaTabela(tblProdutos, _produtoController.obter());
         } catch (SQLException ex) {
             Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
@@ -329,17 +332,21 @@ public class Pedido extends javax.swing.JFrame {
     private void btnIncluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnIncluirActionPerformed
 
         int linha = tblProdutos.getSelectedRow();
+        
+        if(linha!=-1){
+            ProdutoModel model = new ProdutoModel(
+                    (int) tblProdutos.getValueAt(linha, 0),
+                    (String) tblProdutos.getValueAt(linha, 1),
+                    (Float) tblProdutos.getValueAt(linha, 2)
+            );
 
-        ProdutoModel model = new ProdutoModel(
-                (int) tblProdutos.getValueAt(linha, 0),
-                (String) tblProdutos.getValueAt(linha, 1),
-                (Float) tblProdutos.getValueAt(linha, 2)
-        );
-
-        try {
-            this.carregarProdutoNaTabela(tblProdutosSolicitados, model);
-        } catch (SQLException ex) {
-            Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                this.carregarProdutoNaTabela(tblProdutosSolicitados, model);
+            } catch (SQLException ex) {
+                Logger.getLogger(Pedido.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Você precisa selecionar um produto!", "Informativo", JOptionPane.INFORMATION_MESSAGE);
         }
 
     }//GEN-LAST:event_btnIncluirActionPerformed
@@ -370,6 +377,7 @@ public class Pedido extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(null, "Você precisa incluir algum produto!", "Lista vazia", JOptionPane.WARNING_MESSAGE);
                 } else {
                     _pedidoController.solicitar(txtTelefone.getText(), produtos);
+                    this.limparTelefone();
                     this.limpar(tblProdutosSolicitados);
                     JOptionPane.showMessageDialog(null, "Pedido realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 }
@@ -387,8 +395,11 @@ public class Pedido extends javax.swing.JFrame {
         this.limpar(tblProdutosSolicitados);
     }//GEN-LAST:event_btnLimparActionPerformed
 
-    private void limpar(JTable tabela) {
+    public void limparTelefone() {
         txtTelefone.setText(null);
+    }
+
+    private void limpar(JTable tabela) {
         DefaultTableModel model = (DefaultTableModel) tabela.getModel();
         model.setRowCount(0);
         this.refreshTable(tblProdutosSolicitados);
