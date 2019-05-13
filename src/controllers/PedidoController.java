@@ -1,5 +1,6 @@
 package controllers;
 
+import empilhador.PilhaDePedidos;
 import enfileirador.FilaDePedidos;
 import java.sql.SQLException;
 import models.PedidoModel;
@@ -28,7 +29,10 @@ public class PedidoController {
             _pedidoContext.adicionar(telefone, produto.getIdProduto());
         }
 
-        FilaDePedidos.incluirPedido(new PedidoModel(clienteModel, produtosModel));
+        PedidoModel model = new PedidoModel(clienteModel, produtosModel);
+
+        FilaDePedidos.incluirPedido(model);
+        PilhaDePedidos.incluirPedido(model);
     }
 
     public void completarPedido() throws Exception {

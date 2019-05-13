@@ -1,17 +1,19 @@
 package views;
 
 import controllers.ClienteController;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import models.ClienteModel;
 import models.contexts.ClienteContext;
 
 public class AtualizarTelefone extends javax.swing.JFrame {
 
     private final ClienteController _clienteController;
-    private String _antigo;
 
     public AtualizarTelefone(String antigo) {
         initComponents();
-
-        _antigo = antigo;
         _clienteController = new ClienteController(new ClienteContext());
 
         txtAntigo.setText(antigo);
@@ -84,10 +86,32 @@ public class AtualizarTelefone extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAtualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAtualizarActionPerformed
-        _clienteController.atualizarTelefone(_antigo, txtNovo.getText());
+        ClienteModel modelClienteAntigo;
+        ClienteModel modelClienteNovo;
+        
+        try {
+            modelClienteAntigo = _clienteController.obter(txtAntigo.getText());
+            modelClienteNovo = _clienteController.obter(txtNovo.getText());
+
+            if (modelClienteAntigo == null) {
+                JOptionPane.showMessageDialog(null, "Número antigo inválido ou inexistente!", "Erro", JOptionPane.WARNING_MESSAGE);
+            } else if (modelClienteNovo != null) {
+                JOptionPane.showMessageDialog(null, "Novo número já existe!", "Erro", JOptionPane.WARNING_MESSAGE);
+            } else {
+                _clienteController.atualizarTelefone(txtAntigo.getText(), txtNovo.getText());
+                JOptionPane.showMessageDialog(null, "Alterado com sucesso!", "Aviso", JOptionPane.INFORMATION_MESSAGE);
+                this.dispose();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(AtualizarTelefone.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+
     }//GEN-LAST:event_btnAtualizarActionPerformed
 
 
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JLabel jLabel1;
