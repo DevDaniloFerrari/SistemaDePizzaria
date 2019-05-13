@@ -253,6 +253,10 @@ public class Cliente extends javax.swing.JFrame {
 
     }
 
+    public void preencherTelefone(String telefone){
+        txtTelefone.setText(telefone);
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAtualizar;
     private javax.swing.JButton btnAtualizarTelefone;
